@@ -2,14 +2,9 @@ package com.example.reto_3.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
@@ -17,7 +12,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCategory;
+    private Integer id;
     private String name;
     private String description;
 
@@ -26,10 +21,10 @@ public class Category {
     private List<Bike> bikes;
 
     public Integer getIdCategory() {
-        return idCategory;
+        return id;
     }
     public void setIdCategory(Integer idCategory) {
-        this.idCategory = idCategory;
+        this.id = idCategory;
     }
 
     public String getName() {
