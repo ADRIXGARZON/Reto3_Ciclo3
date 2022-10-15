@@ -3,6 +3,7 @@ package com.example.reto_3.repository;
 import com.example.reto_3.entities.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +15,10 @@ public class MessageRepository {
     public List<Message> getAll(){
         return (List<Message>) messageCrudRepository.findAll();
     }
-
     public Optional<Message> getMessage(int id){
-        return messageCrudRepository.findById("id");
+        return messageCrudRepository.findById(String.valueOf(id));
     }
+
     public Message save(Message message){
         return messageCrudRepository.save(message);
     }

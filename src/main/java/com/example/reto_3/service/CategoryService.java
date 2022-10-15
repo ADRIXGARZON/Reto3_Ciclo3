@@ -1,9 +1,11 @@
 package com.example.reto_3.service;
 
+
 import com.example.reto_3.entities.Category;
 import com.example.reto_3.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,14 +15,20 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> getAll(){return (List<Category>) categoryRepository.getAll();}
-    public Optional<Category> getCategory(int categoryId){return categoryRepository.getCategory(categoryId);}
+    public List<Category> getAll() {
+        return categoryRepository.getAll();
+    }
+
+    public Optional<Category> getCategory(int categoryId) {
+        return categoryRepository.getCategory(categoryId);
+    }
+
     public Category save(Category category){
-        if(category.getIdCategory()==null){
+        if(category.getId()==null){
             return categoryRepository.save(category);
         }else{
-            Optional<Category> e = categoryRepository.getCategory(category.getIdCategory());
-            if(e.isEmpty()){
+            Optional<Category> e = categoryRepository.getCategory(category.getId());
+            if(e.isPresent()){
                 return category;
             }else{
                 return categoryRepository.save(category);
@@ -28,9 +36,9 @@ public class CategoryService {
         }
     }
     public Category update(Category category){
-        if(category.getIdCategory()!=null){
-            Optional<Category> q = categoryRepository.getCategory(category.getIdCategory());
-            if(q.isEmpty()){
+        if(category.getId()!=null){
+            Optional<Category> q = categoryRepository.getCategory(category.getId());
+            if(q.isPresent()){
                 if(category.getName()!=null){
                     q.get().setName(category.getName());
                 }
@@ -44,9 +52,9 @@ public class CategoryService {
         }
     }
     public boolean delete(int id){
-        boolean flag=false;
+        boolean flag = false;
         Optional<Category>p= categoryRepository.getCategory(id);
-        if(p.isEmpty()){
+        if(p.isPresent()){
             categoryRepository.delete(p.get());
             flag=true;
         }

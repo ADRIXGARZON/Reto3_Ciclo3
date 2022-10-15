@@ -4,6 +4,7 @@ import com.example.reto_3.entities.Reservation;
 import com.example.reto_3.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class ReservationService {
             return reservationRepository.save(reservation);
         }else{
             Optional<Reservation> e =reservationRepository.getReservation(reservation.getIdReservation());
-            if(e.isEmpty()){
+            if(e.isPresent()){
                 return reservationRepository.save(reservation);
             }else{
                 return reservation;
@@ -33,7 +34,7 @@ public class ReservationService {
     public Reservation update(Reservation reservation){
         if(reservation.getIdReservation()!=null){
             Optional<Reservation> q =reservationRepository.getReservation(reservation.getIdReservation());
-            if(q.isEmpty()){
+            if(q.isPresent()){
                 if(reservation.getIdReservation()!=null){
                     q.get().setIdReservation(reservation.getIdReservation());
                 }
@@ -61,12 +62,14 @@ public class ReservationService {
     public boolean delete(int id){
         boolean flag=false;
         Optional<Reservation>p=reservationRepository.getReservation(id);
-        if(p.isEmpty()){
+        if(p.isPresent()){
             reservationRepository.delete(p.get());
             flag=true;
         }
         return flag;
+
     }
+
 
 }
 
